@@ -1,0 +1,54 @@
+# define F_CPU 16000000 UL
+# include <avr/io.h>
+# include <util / delay .h>
+// Motor Pins : D5 (PD5 ) and D6 (PD6 )
+// Servo Pin : D11 (PB3 )
+void init_pwm () {
+	// --- Setup Motor PWM ( Timer 0) ---
+	// Fast PWM , Non - inverting mode on OC0B (D5) and OC0A (D6)
+	TCCR0A = (1 << COM0A1 ) | (1 << COM0B1 ) | (1 << WGM01 ) | (1 <<
+	WGM00 );
+	TCCR0B = (1 << CS01 ) | (1 << CS00 ); // Prescaler 64
+	// --- Setup Servo PWM ( Timer 2) ---
+	// Using Timer 2 for D11 ( OC2A ) to keep it simple
+	// Fast PWM , Prescaler 1024 ( approx 61Hz , close enough for
+	most servos )
+	TCCR2A = (1 << COM2A1 ) | (1 << WGM21 ) | (1 << WGM20 );
+	TCCR2B = (1 << CS22 ) | (1 << CS21 ) | (1 << CS20 );
+	// Set Data Direction Registers to Output
+	DDRD |= (1 << DDD5 ) | (1 << DDD6 ); // Motor Pins D5 , D6
+	DDRB |= (1 << DDB3 ); // Servo Pin D11
+}
+// Function to set servo position ( mapping 0 -180 degrees to pulse
+width )
+// This is a rough estimation for 50 -60 Hz PWM
+void set_servo_pos (int degrees ) {
+	// Servo pulse width is usually 1ms to 2ms.
+	// On Timer 2 with 1024 prescaler : 0 deg ~ 12, 180 deg ~ 36
+	uint8_t ocr_value = 12 + ( degrees * 24 / 180) ;
+OCR2A = ocr_value ;}
+int main ( void ) {
+	init_pwm ();
+	// Initial Safety : Motor Off
+	OCR0A = 0;
+	OCR0B = 0;
+	_delay_ms (500) ;
+	// Start Motor : RPWM (D5) = 150 , LPWM (D6) = 0
+	OCR0B = 150;
+	OCR0A = 0;
+	while (1) {
+		// 1. Sweep 0 to 180 degrees
+		for (int pos = 0; pos <= 180; pos ++) {
+			set_servo_pos (pos);
+			_delay_ms (30) ; // Slow speed
+		}
+		// 2. Stop for 1 second
+		_delay_ms (1000) ;
+		// 3. Sweep 180 to 0 degrees
+		3
+		for (int pos = 180; pos >= 0; pos --) {
+			set_servo_pos (pos);
+			_delay_ms (30) ; // Slow speed
+		}
+		// 4. Stop for 1 second
+	_delay_ms (1000) ;}}
