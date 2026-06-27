@@ -4,7 +4,7 @@ An automated, microcontroller-based sports automation system designed to provide
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 Manual feeding by a coach or partner can be inconsistent and fatiguing. This project solves that problem by utilizing an **ATmega328P** microcontroller to autonomously feed and shoot table tennis balls with continuous variable oscillation, democratizing high-level solo training.
 
@@ -18,7 +18,7 @@ The system bypasses high-level Arduino libraries to manipulate hardware register
 
 ---
 
-## 🛠️ Hardware Architecture & Components
+##  Hardware Architecture & Components
 
 The hardware isolates the high-discharge motor circuit from the logic circuit to ensure user safety and stable voltage levels.
 
@@ -38,7 +38,7 @@ The hardware isolates the high-discharge motor circuit from the logic circuit to
 
 ---
 
-## 📊 Technical Analysis & Calculations
+##  Technical Analysis & Calculations
 
 ### 1. PWM Frequency Calculation
 To efficiently drive the small DC motors without losing torque or creating excessive switching heat, Timer0 is configured in **8-bit Fast PWM mode** with a prescaler of 64:
@@ -65,11 +65,11 @@ The circuit architecture was fully modeled and simulated in **Proteus** prior to
 
 ---
 
-## 👥 Team & Contributions
+## 👥 Team  Contributors
 
-* **Alina Riaz** (Reg #506611): C Coding and Presentation Preparation.
-* **Muhammad Mutaal Khan** (Reg #522455): Proteus Simulation and Technical Documentation.
-* **Muhammad Ahmed Saeed** (Reg #501801) & **Ammar Bin Jalal** (Reg #502254): Hardware Assembly (Motors, Driver, Frame) and Physical Testing.
+* **Alina Riaz** 
+* **Muhammad Mutaal Khan** 
+* **Muhammad Ahmed Saeed**
+* **Ammar Bin Jalal** 
 
-**Lab Instructor:** Engineer Adnan Aslam  
-*NUST School of Electrical Engineering & Computer Science*
+
